@@ -1,0 +1,8 @@
+{
+    "client_id"     : "DEMO",
+    "logo_base_path": "./app/config/",
+    "client_name"   : "DiYRules ",
+    "sub_title"     : "Alfa Version",
+    "logo_image"    : "/images/demoLogo1.png",
+    "avatar"        : "/images/avatar5.png"
+}

@@ -1,0 +1,32 @@
+{
+	"myprofile": {
+		"route_details": {
+			"url": "/app/myProfile",
+			"templateUrl": "/app/settings/user/myprofile.html",
+			"access": ""
+		}
+	},
+	"mysettings": {
+		"route_details": {
+			"url": "/app/mySettings",
+			"templateUrl": "/app/settings/user/mysettings.html",
+			"access": ""
+		}
+	},
+    "systemsettings": {
+		"route_details": {
+			"url": "/app/sysSettings",
+			"templateUrl": "/app/settings/system/system-settings.html",
+			"access": ""
+		}
+	},
+    "organizations": {
+		"route_details": {
+			"url": "/app/organizations",
+			"templateUrl": "/app/organizations/organizations.html",
+            "controller": "organizationController as orgCtrl",
+            "type" : "custom",
+			"access": ""
+		}
+	}
+}

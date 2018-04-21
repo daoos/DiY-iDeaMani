@@ -1,0 +1,98 @@
+@headerHeight: calc(3vw);
+@logoWidth: calc(4vw);
+@bodyFontSize: 14px;
+
+
+.header{
+    width: calc(100vw);
+    background-color: #1d365d;
+    height: @headerHeight;
+}
+
+.header .header-container{
+    width: calc(100vw);
+    height: 100%;
+    background-color: #1d365d;
+    position: relative;
+    margin: 0 auto;
+}
+
+.header .header-container .headerMainArea{
+   width: calc(92vw);
+    height: 100%;
+    background-color: #1d365d;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+
+.header .title{
+    color: #ffffff;
+    float: left;
+    font-size: @bodyFontSize + 1px;
+    position: relative;
+    font-family: @bodyFontFamily
+}
+.header .subtitle{
+    color: #898181;
+    font-size: @bodyFontSize - 2px;
+    position: absolute;
+}
+
+.header {
+    .logoSpot{
+        width: @logoWidth;
+        height: @headerHeight;
+        background-color: #1d1b1b;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1200;
+    }
+}
+
+.header {
+    .userSettingsSpot{
+        width: calc(15%);
+        height: @headerHeight;
+        background-color: rgba(29, 28, 28, 0.75);
+        position: absolute;
+        top: 0px;
+        left: calc(85%);
+        z-index: 1200;
+    }
+}
+
+.header {
+    .userSettingsSpot{
+        .userAvatar{
+            width: calc(25%);
+            height: calc(80%);
+            position: absolute;
+            top: 8px;
+            left: calc(65%);
+            float: right;
+            z-index: 1200;
+            border-radius: 50%;
+        }
+    }
+}
+
+.header {
+    .userSettingsSpot{
+        .userSettingsPullDown{
+            font-size: 14px;
+            margin-top: calc(12%);
+            margin-left: calc(0.5%);
+            z-index: 1200;
+            color: #d7d7d7;
+        }
+    }
+}
+
+.trademark {
+    color: chartreuse;
+    font-size: 12px;
+}

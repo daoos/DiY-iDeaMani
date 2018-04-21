@@ -1,0 +1,25 @@
+
+<div  data-ng-controller="LeftNavController as leftNavController">
+
+    <div class="navTreeContainer" ng-show="!slide" >
+        <div class="navSearchContainer">
+            <div class="navSearchBox">
+                <!-- Place search filter here #f11181-->
+                <div class="search-box-leftnav">
+                    &nbsp;<i title="Search Left Nav" class="fa fa-search search"></i>
+                    <input title="Enter left-nav search criteria" class="search-input" placeholder="search" type="text">
+                    <i title="clear" class="fa fa-times close-x"></i>
+                </div>
+            </div>
+            <div class="navContainerRibbonAutoHide">
+                <a href="#" title="slide me"  ng-click="slide=!slide">
+                    <i ng-show="!slide" class="fa  fa-arrow-circle-left" style="color:#d3d8cb"></i>
+                    <i ng-show="slide" class="fa  fa-arrow-circle-right" style="color:#d3d8cb"></i>
+                </a>
+            </div>
+        </div>
+        <div class="leftNavScroll" jq-diy-scroll="{color:'#5cd6fb', railColor:'#ff00ff', railVisible: true, railOpacity:10, distance: '2px', alwaysVisible: true }">
+                <div ng-show="!slide" data-diy-menu="true" call-back-service="UserService"></div>
+        </div>
+    </div>    
+</div>

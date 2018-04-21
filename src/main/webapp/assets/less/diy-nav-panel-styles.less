@@ -1,0 +1,219 @@
+@bodyFontSize: 14px;
+@bodyFontFamily:  Arial,Verdana, sans-serif;
+
+.navTreeContainer{
+    display: block;
+    background-color: #292626;
+    width: calc(15vw);
+    height: 100%;
+    transition: all .5s ease;
+    text-align: left;
+    font-family: @bodyFontFamily;
+    font-size: @bodyFontSize - 2px;
+    color: aliceblue;
+    
+    position: absolute;
+    -webkit-transform: translate3d(0,0,0); /* Chrome, Safari, Opera */
+    transform: translate3d(0,0,0);
+}
+
+.navTreeContainer.ng-hide-remove.ng-hide-remove-active {
+  -webkit-animation:50.5s slide-left;
+  animation: 50.5s slide-left;
+}
+
+.navTreeContainer.ng-hide-add.ng-hide-add-active {
+  -webkit-animation:50.5s slide-right;
+  animation:50.5s slide-right;
+}
+
+.navTreeContainer.ng-hide {
+  left:-14%;
+  display:block!important;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide-left
+{
+    from {left: 90%;}
+    to   {left: 10px;}
+}
+
+/* Standard syntax */
+@keyframes slide-left
+{
+    from {left: 90%;}
+    to   {left: 10px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide-right
+{
+  from {left: 10px;}
+  to   {left:90%;}
+    
+}
+
+/* Standard syntax */
+@keyframes slide-right
+{
+  from {left: 10px;}
+  to   {left:90%;}
+}
+
+
+
+.navTreeContainer li{
+    margin-left: 0px;
+    margin-bottom: 0px; 
+    display: block;
+}
+
+.navTreeContainerScroll {
+    height: 100% !important;
+    background-color: red !important;
+}
+
+
+.navSearchContainer {
+    display: block;
+    background-color: #1c1717;
+    width: 100%;
+    min-height: 45px;
+    transition: all .5s ease;
+    text-align: left;
+    font-family: @bodyFontFamily;
+    font-size: @bodyFontSize - 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-color: aliceblue;
+    border-style: done;
+    border-width: 0.5px;
+}
+
+
+
+.navSearchBox {
+    width: 85%;
+    float: left;
+}
+
+.navContainerRibbon {
+    
+    background-color: #292626;
+    width: 100%;
+    min-height: 33px;
+    transition: all .5s ease;
+    text-align: left;
+    font-family: @bodyFontFamily;
+    font-size: @bodyFontSize - 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-color: aliceblue;
+    border-style: none;
+    border-width: 0.5px;
+}
+
+
+
+
+.folderNodeContainer li{
+   background-color: red !important;  
+}
+
+.navTreeContainer li:hover {
+   cursor: pointer; 
+   background-color: #292626 !important;     
+   color: #ffffff !important;
+}
+
+
+.navTreeContainer ul{
+    display: block;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.navTreeContainer li:active{
+    color: aliceblue !important;
+    background-color: #1f1f1f !important;
+}
+
+.navTreeContainer li a{
+    color: aliceblue !important;
+}
+
+.navTreeContainer li a:hover{
+    color: aliceblue !important;
+    text-decoration: none;
+}
+
+.folderColor{
+   color:  #af8e8e;    
+}
+
+.ideaManiItem {
+    margin-left: 0px;
+    height: 2px;
+    background-color:  rgba(4, 175, 17, 0.54);
+    color:  #447948;
+}
+
+.nodeItem {
+    margin-left: 0px;
+    height: 25px;
+    padding-left: 0px;
+}
+
+.nodeFolder {
+    margin-left: 0px;
+    height: 25px;
+    background-color:  #363333;
+}
+
+.nodeFolder:hover {
+    background-color: #447948  !important;
+    color: black;
+    
+   
+}
+
+.nodeItem:hover {
+    background-color: #447948  !important; /*#413d3d !important;*/
+    
+}
+
+.nodeItemFadeIn {
+    transition: background-color 2s ease-in;
+    
+}
+
+.nodeItemFadeOut {
+    transition: background-color 2s ease-in;
+    opacity:0;
+    transition: opacity 2s;
+}
+
+.navContainerRibbonActionIcons{
+    width: 85%;
+    float: left;
+}
+
+.navContainerRibbonActionIcons a{
+    padding-right: 15px;
+}
+
+.navContainerRibbonAutoHide{
+    width: 15%;
+    float: right;
+    text-align: right;
+    padding-right: 5px;
+}
+
+
+
+
+

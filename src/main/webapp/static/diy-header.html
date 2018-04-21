@@ -1,0 +1,38 @@
+<div class="header" ng-controller="GlobalHeaderController as GlobalHeaderCtrl">
+ <div class="header-container">
+     <div class="logoSpot" logo-img={{GlobalHeaderCtrl.client.clientLogoUrl}}></div>
+        <div class="headerMainArea">
+            <div class="title">{{GlobalHeaderCtrl.client.clientName}}
+                <span class="trademark">&reg;</span>
+                <span class="subtitle">{{GlobalHeaderCtrl.client.subTitle}}</span>
+            </div>
+            <div class="search-box">
+            &nbsp;<i class="fa fa-search search"></i>
+            <input class="search-input" placeholder="search" type="text">
+            <i class="fa fa-times close-x"></i>
+        </div>
+        </div>
+        
+     <div class="userSettingsSpot">
+         <div class="dropdown">
+            <button class="btn btn-link dropdown-toggle userSettingsPullDown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   
+            </button>
+             <ul class="dropdown-menu" role="menu" >
+                <li class="dropdown-item" role="menuitem"><a class="globalLink" ui-sref="myprofile">My Profile</a></li>
+                <li class="dropdown-item" role="menuitem"><a ui-sref="mysettings">My Settings</a></li>
+                 <li class="dropdown-item" role="menuitem"><a ui-sref="systemsettings">System Setup</a></li>
+                <li class="dropdown-item" role="menuitem" href="#">Sign out</li>
+              </ul>
+  
+        </div>
+         
+        
+        <img class="userAvatar" src="{{GlobalHeaderCtrl.user.avatar}}">
+     </div>
+     
+        
+ </div>  
+    
+    
+</div>
