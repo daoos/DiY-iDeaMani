@@ -10,7 +10,9 @@ define([
  'app/diyNgGlobalServices',
  'app/diyNgGlobalDirectives',
  'app/diyNgDiagramDirectives',    
- 'app/organizations/org'   
+ 'app/organizations/org',
+ 'app/home/home',    
+    
     
 ], function(angular){
    'use strict' ;
@@ -25,7 +27,8 @@ define([
         'diyapp.constants',
         'appSettings',
         'ui.bootstrap',
-        'app.organizations'
+        'app.organizations',
+        'app.home',
         ], function(){
         
         console.log("APP JS Loaded and Successfully executed default fn()...."); 

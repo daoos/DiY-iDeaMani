@@ -29,33 +29,35 @@ li:active {
 .workArea{
     height: calc(100vh);
     width: calc(100vw);
-    background-color: #b8cdde;
+    background-color: #383436;
+    
 }
 
 .workspace{
-    height: calc(97vh);
+    height: calc(94vh);
     width: calc(100vw);
-    background-color:  !important;
     display: flex;
     align-items: top;
+
 }
 
 .leftPane{
     height: 100%;
     width: calc(15vw);
-    
 }
 
 
 
 .search-box{
     border-radius: 12px 12px 12px 12px;
-    background-color: rgba(29, 28, 28, 0.56);
+    background-color: rgba(61, 183, 160, 0.4);
     height: 25px;
     width: 190px;
     margin: 0px 0px 0px calc(50%);
     transition: background-color 0.5s ease;
     color: #383436;
+    float: right;
+    position:absolute;
 }
 
 .search-box-leftnav{
@@ -109,12 +111,11 @@ input, textarea, select, button {
 }
 
 .main-panel {
-    display: block;
-    background-color: #b8cdde;
+    background-color: #383436;
     width: calc(85vw);
-    height: calc(90vh);
-    margin-left: calc(0vw);
-    transition: all .5s ease;
+    height: calc(94vh);
+    /*transition: all .5s ease;*/
+    transition: 1s ease;
 }
 
 .pageTtile{
@@ -137,9 +138,10 @@ input, textarea, select, button {
 .pageWorkAreaAnimated{
     position: absolute;
     left: calc(15vw);
-    height: calc(90vh);
+    height: 100%;
     width: calc(100vw);
     transition: 1s;
     background-color: red;
 }
+
 

@@ -28,5 +28,14 @@
             "type" : "custom",
 			"access": ""
 		}
+	},
+    "home": {
+		"route_details": {
+			"url": "/",
+			"templateUrl": "/app/home/diy-home-page.html",
+            "controller": "homeController as homeCtrl",
+            "type" : "custom",
+			"access": ""
+		}
 	}
 }

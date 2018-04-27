@@ -17,16 +17,115 @@ require(['angular'],function(){
            }
        })
     
+     /** Workspace DIV **/
+       .directive('diyWorkspace', ['$compile','$injector','$document', function($compile, $injector, $document) {
+            return {
+                restrict: 'EAC',
+                scope: {
+                    leftNavPageSrc: '=',
+                     callBackService: '='
+                },
+                link: function ( scope, element, attrs ) {
+                    
+                    scope.isLeftNavTurnedOn = true;
+                    var callBackService  = attrs.callBackService;
+                    var proxyService = '';
+                    if(callBackService){
+                        proxyService = $injector.get(callBackService);
+                    }
+                    scope.$watch(function(){ return proxyService.leftNavTurnedOn}, function(val){
+                                   
+                        var children = element.children();
+                        for(var i=0;i<children.length;i++){
+                            var childNodes = children[i].childNodes;
+                            for(var c=0;c<childNodes.length;c++){
+                                var child = childNodes[c];
+                                var childId = child.id;
+                                var grandChilds = child.childNodes;
+                                
+                                
+                                
+                                if(childId==='leftNav'){
+                                    if(val){
+                                        child.style.marginLeft = "0px";
+                                        
+                                    }else{
+                                        child.style.marginLeft = "-270px";
+                                    }
+                                }else if(childId==='main'){
+                                    if(val){
+                                        child.style.width = "calc(84vw)";
+                                    }else{
+                                        child.style.width = "calc(97vw)";
+                                    }  
+                                    for(var k=0;k<grandChilds.length;k++){
+                                         var grandChild = grandChilds[k];
+                                         var greatGrandChilds = grandChilds[k].childNodes;
+                                         console.log("grandChild id",grandChild.id);
+                                        
+                                        for(var l=0;l<greatGrandChilds.length;l++){
+                                            var greatGrandChild = greatGrandChilds[l];
+                                            console.log("greatGrandChild id",greatGrandChild.id);
+                                            if(greatGrandChild.id==='dynamicView'){
+                                                if(val){
+                                                    greatGrandChild.style.width = "calc(84vw)";
+                                                    greatGrandChild.style.left = "calc(15vw)";
+                                                }else{
+                                                    greatGrandChild.style.width = "calc(98vw)";
+                                                    greatGrandChild.style.left = "calc(1vw)";
+                                                }   
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            /*if(children[i].nodeType !== 8){
+                                angular.element(children[i]).css('background', 'grey');
+                            }*/
+                        }
+                        console.log("Val ::",val);
+                        if(val){
+                            scope.isLeftNavTurnedOn = val;
+                        }else{
+                            scope.isLeftNavTurnedOn = true;
+                        }
+                    });
+                    
+                    
+                    var myTemplate = ''+
+                         '<div class="workspace"><div class="leftPane" id="leftNav" data-ng-include="\''+attrs.leftNavPageSrc+'\'"><input type="hidden" ng-model="leftNavController.isLeftNavTurnedOn" value="'+scope.isLeftNavTurnedOn+'"></div>'+
+                         '<div class="main-panel"  id="main" role="main">'+
+                         '<div ui-view class="view-animate my-ease-in" > </div>'+
+                         '</div></div>';
+                    
+                    
+                    scope.deriveLeftPaneClass = function(leftNavState){
+                        console.log("leftNavState ::",leftNavState);
+                        if(leftNavState){
+                            return "leftPane";
+                        }else{
+                            return "leftPaneHidden";
+                        }
+                    }
+                    
+                     element.html('').append( $compile(myTemplate)( scope ) );
+                    
+                    
+                }
+            };
+        }])
+    
      /** Animated DIV **/
        .directive('animatedFromRight', function(){
            return function(scope, element, attrs){
                element.css({
                     'position': 'absolute',
                     'left': 'calc(15vw)',
-                    'height': 'calc(90vh)',
-                    'width': 'calc(85vw)',
+                    'height': 'calc(94vh)',
+                    'width': '100%',
                     'transition': '1s ease',
-                    'background-color': '#b8cdde'
+                    'background-color': '#838685',
+                    'border-left' : 'solid 2px #447948'
                });
                
             }

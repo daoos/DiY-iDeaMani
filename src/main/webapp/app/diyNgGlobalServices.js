@@ -84,6 +84,20 @@ define([
             var userSerice = {};
             var diyLeftNavMenuData = {};
             userSerice.folderNode = '';
+            userSerice.leftNavTurnedOn = true;
+            
+            userSerice.toggleLeftNave = function(currState){
+                if(currState){
+                    userSerice.leftNavTurnedOn = false;
+                }else{
+                    userSerice.leftNavTurnedOn = true;
+                }
+                return userSerice.leftNavTurnedOn;
+            }
+            
+            
+            
+            
             
             /** change the implementation of tihs function by passing logged in user id
                 and get data from DB instead of DEMO Settings.json

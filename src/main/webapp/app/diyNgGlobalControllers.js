@@ -26,8 +26,12 @@ define([
         var slide = false;
         
         mySelf.leftNavSettings = {}
-        
+        mySelf.isLeftNavTurnedOn = true;
         var data = {};
+        
+        mySelf.toggleLeftNav = function(){
+            mySelf.isLeftNavTurnedOn = UserService.toggleLeftNave(mySelf.isLeftNavTurnedOn);
+        }
         
         function getUserLeftNavigation() {
             UserService.getLeftNavigation(data).then( function(data){

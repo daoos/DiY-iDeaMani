@@ -1,40 +1,31 @@
 <!DOCTYPE html>
-
 <html lang="en-us">
     
     <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
         <title></title>
         <link rel="stylesheet" type="text/css" media="screen" href="node_modules/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
         <link rel="stylesheet" type="text/css" media="screen" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="node_modules/font-awesome/css/font-awesome.min.css">
-        
         <link rel="stylesheet/less" type="text/css" href="assets/less/diy_miniature_styles.css">
-        
         <!--<script type="text/javascript" src="node_modules/vis/dist/vis.js"></script>-->
         <link href="node_modules/vis/dist/vis.css" rel="stylesheet" type="text/css" />
         
-        <!-- following is not loaded properly from npm so directly included here-->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        
     </head>
     <body>
-        <div class="workArea">
+        <div class="workArea"> <!--pagewrapper-->
             <div data-ng-include="'static/diy-header.html'"></div>
             <!--body container div -->
-            <div>
-            <div class="workspace">
+            <diy-workspace left-nav-page-src="static/diy-left-panel.html" call-back-service="UserService"></diy-workspace>
                 <!-- Left Panel div-->
-                <div class="leftPane" data-ng-include="'static/diy-left-panel.html'"> </div>
-                <!-- main panel -->
+                <!--<div class="leftPane" data-ng-include="'static/diy-left-panel.html'"> </div>
                 <div class="main-panel"  id="main" role="main">
                     <div ui-view class="view-animate my-ease-in" > </div>
-                </div>
-                
-            </div> 
-            </div>  
+                </div>-->
         </div>
     </body>
     

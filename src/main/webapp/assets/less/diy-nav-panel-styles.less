@@ -1,17 +1,76 @@
 @bodyFontSize: 14px;
 @bodyFontFamily:  Arial,Verdana, sans-serif;
 
+.leftPane {
+    background-color: #292626;
+    width: calc(15vw);
+    height: calc(94vh);
+    border-right-style: solid;
+    border-right-color: #000000;
+    border-right-width: 1px;
+    border-top-style: solid;
+    border-top-color: #000000;
+    border-top-width: 1px;
+    transition: 1s ease;
+}
+
+.leftPaneHidden {
+    background-color: #292626;
+    width: calc(15vw);
+    height: calc(94vh);
+    border-right-style: solid;
+    border-right-color: #000000;
+    border-right-width: 1px;
+    border-top-style: solid;
+    border-top-color: #000000;
+    border-top-width: 1px;   
+    margin-left: -50px;
+}
+
+.leftPaneIcons {
+    color: #ffffff;
+    font-size: 28px;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+
+.leftPaneIconsSelected {
+    color: #ffffff;
+    font-size: 28px;
+    padding: 18px;
+}
+
+.leftPaneContentArea{
+    background-color: green;
+    width: 70%;
+    height: 100%;
+    border-style: none;
+    margin-left: 87px;
+    margin-top: -331px;
+    
+}
+
+.leftPaneDetailArea {
+    background-color: #413d3d;
+   /* width: 96%;*/
+    height: 100%;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px;
+}
+
 .navTreeContainer{
     display: block;
     background-color: #292626;
     width: calc(15vw);
-    height: 100%;
+   /* height: 100%;*/
     transition: all .5s ease;
     text-align: left;
     font-family: @bodyFontFamily;
     font-size: @bodyFontSize - 2px;
     color: aliceblue;
-    
     position: absolute;
     -webkit-transform: translate3d(0,0,0); /* Chrome, Safari, Opera */
     transform: translate3d(0,0,0);
@@ -90,6 +149,7 @@
     border-color: aliceblue;
     border-style: done;
     border-width: 0.5px;
+    border-bottom: solid 2px #447948;
 }
 
 
@@ -212,8 +272,5 @@
     text-align: right;
     padding-right: 5px;
 }
-
-
-
 
 

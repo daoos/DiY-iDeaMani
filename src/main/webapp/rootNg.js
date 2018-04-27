@@ -5,6 +5,7 @@ define([
     'require',
     'app/app',
     'angular',
+    'bootstrap',
     'deferredBootstrapper',
     'ui.bootstrap.tpls'
 ], function (jquery,require,angular) {

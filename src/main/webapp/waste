@@ -1,0 +1,35 @@
+ <ul class="vertical-icon-menu list-unstyled">
+                        <li class="leftPaneIcons"> 
+                            <button class="bdm-toolbar-btn leftPaneIcons"><i class="fa fa-tree"></i></button>
+                        </li>
+                        <li class="leftPaneIcons"> 
+                            <button class="bdm-toolbar-btn leftPaneIcons"><i class="fa fa-cogs"></i></button>
+                        </li>
+                        <li class="leftPaneIcons"> 
+                            <button class="bdm-toolbar-btn leftPaneIcons"><i class="fa fa-trello"></i></button>
+                        </li>
+                        <li class="leftPaneIcons"> 
+                            <button class="bdm-toolbar-btn leftPaneIcons"><i class="fa fa-pagelines"></i></button>
+                        </li>
+                    </ul>
+                    <div class="sidebar-left-content leftPaneContentArea">
+                        <div class="sidebar-pane leftPaneDetailArea" style="width: 350px;">
+                            <header>Header</header>
+                            <section>
+                                <!--<div class="tree-content tree">
+                                    <ul>
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                    </ul>
+                                </div>-->
+                            </section>
+                            <div class="sidebar-bottom-menu">
+                                <div class="table">
+                                        <div class="table__cell">1</div>
+                                        <div class="table__cell">2</div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>

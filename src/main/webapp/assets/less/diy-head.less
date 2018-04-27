@@ -5,14 +5,14 @@
 
 .header{
     width: calc(100vw);
-    background-color: #1d365d;
+    background-color: #000000; /*#1d365d;*/
     height: @headerHeight;
 }
 
 .header .header-container{
     width: calc(100vw);
     height: 100%;
-    background-color: #1d365d;
+    background-color: #000000; /*#1d365d;*/
     position: relative;
     margin: 0 auto;
 }
@@ -20,11 +20,12 @@
 .header .header-container .headerMainArea{
    width: calc(92vw);
     height: 100%;
-    background-color: #1d365d;
+    background-color: #000000; /*#1d365d;*/
     position: relative;
     margin: 0 auto;
     display: flex;
     align-items: center;
+    border-bottom: solid 2px #447948;
 }
 
 
@@ -32,8 +33,8 @@
     color: #ffffff;
     float: left;
     font-size: @bodyFontSize + 1px;
-    position: relative;
-    font-family: @bodyFontFamily
+    position: absolute;
+    font-family: @bodyFontFamily;
 }
 .header .subtitle{
     color: #898181;
@@ -50,6 +51,7 @@
         top: 0px;
         left: 0px;
         z-index: 1200;
+        border-bottom: solid 2px #447948;
     }
 }
 
@@ -62,6 +64,7 @@
         top: 0px;
         left: calc(85%);
         z-index: 1200;
+        border-bottom: solid 2px #447948;
     }
 }
 
@@ -93,6 +96,6 @@
 }
 
 .trademark {
-    color: chartreuse;
+    color: #1d5d56;
     font-size: 12px;
 }

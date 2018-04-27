@@ -17,6 +17,7 @@ define({
      'ngAnimate'            : 'node_modules/angular-animate/angular-animate.min',
      'ui.bootstrap.tpls'    : 'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls',
      'd3'                   : 'node_modules/d3/dist/d3.min',
+     'jquery.slimscroll'    : 'node_modules/jquery-slimscroll/jquery.slimscroll.min',
      'c3'                   : 'node_modules/d3/dist/c3.min',
      'less'                 : 'node_modules/less/dist/less.min',
      'app-settings'         : 'app/config/appConfig',
