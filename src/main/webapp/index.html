@@ -14,18 +14,16 @@
         <link rel="stylesheet/less" type="text/css" href="assets/less/diy_miniature_styles.css">
         <!--<script type="text/javascript" src="node_modules/vis/dist/vis.js"></script>-->
         <link href="node_modules/vis/dist/vis.css" rel="stylesheet" type="text/css" />
+        <link href="node_modules/vis/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+        <link href="node_modules/vis/dist/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
         
+                
     </head>
     <body>
         <div class="workArea"> <!--pagewrapper-->
             <div data-ng-include="'static/diy-header.html'"></div>
             <!--body container div -->
             <diy-workspace left-nav-page-src="static/diy-left-panel.html" call-back-service="UserService"></diy-workspace>
-                <!-- Left Panel div-->
-                <!--<div class="leftPane" data-ng-include="'static/diy-left-panel.html'"> </div>
-                <div class="main-panel"  id="main" role="main">
-                    <div ui-view class="view-animate my-ease-in" > </div>
-                </div>-->
         </div>
     </body>
     

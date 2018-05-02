@@ -36,7 +36,6 @@ define([
     });
     
     app.config(['$stateProvider', '$urlRouterProvider', 'DIY_SPA_ROUTES', function($stateProvider,$urlRouterProvider,DIY_SPA_ROUTES){
-        console.log("DIY_SPA_ROUTES ::",DIY_SPA_ROUTES);
         
         $urlRouterProvider.otherwise('/');
         
@@ -60,16 +59,11 @@ define([
             if(DIY_SPA_ROUTES.hasOwnProperty(spaRoute)){
                 var routeKey = spaRoute;
                 var routeSettings= DIY_SPA_ROUTES[spaRoute];
-                console.log("routeKey ::",routeKey);
-                console.log("routeSettings ::",routeSettings.route_details);
                 $stateProvider.state(spaRoute, routeSettings.route_details);
                 
             }
             
         }
-        
-         console.log("$stateProvider ::",$stateProvider);
-        
     }]);
     
     return app;

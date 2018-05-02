@@ -9,7 +9,7 @@ define([
         
     function organizationController($rootScope,$scope,CanvasDataSet) {
         
-    	console.log(" CanvasDataSetCanvasDataSet ::",CanvasDataSet);
+    	console.log("CanvasDataSetCanvasDataSet ::",CanvasDataSet);
         var vm = this;
         vm.pageName = "Home/Organizations";
         vm.shapeType = 'circle';

@@ -6,6 +6,20 @@ require(['angular'],function(){
     
    angular.module('app.global.directives',[])
     
+    /** Tooltip **/
+    .directive('tooltip', function(){
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs){
+                element.hover(function(){
+                    element.tooltip('show');
+                }, function(){
+                    element.tooltip('hide');
+                });
+            }
+        };
+    })
+    
     /** Log Image **/
        .directive('logoImg', function(){
            return function($scope, $element, $attrs) {
@@ -16,6 +30,8 @@ require(['angular'],function(){
                });
            }
        })
+    
+     
     
      /** Workspace DIV **/
        .directive('diyWorkspace', ['$compile','$injector','$document', function($compile, $injector, $document) {
@@ -42,9 +58,6 @@ require(['angular'],function(){
                                 var child = childNodes[c];
                                 var childId = child.id;
                                 var grandChilds = child.childNodes;
-                                
-                                
-                                
                                 if(childId==='leftNav'){
                                     if(val){
                                         child.style.marginLeft = "0px";
@@ -54,24 +67,21 @@ require(['angular'],function(){
                                     }
                                 }else if(childId==='main'){
                                     if(val){
-                                        child.style.width = "calc(84vw)";
+                                        child.style.width = "calc(85vw)";
                                     }else{
-                                        child.style.width = "calc(97vw)";
+                                        child.style.width = "calc(98vw)";
                                     }  
                                     for(var k=0;k<grandChilds.length;k++){
                                          var grandChild = grandChilds[k];
                                          var greatGrandChilds = grandChilds[k].childNodes;
-                                         console.log("grandChild id",grandChild.id);
-                                        
                                         for(var l=0;l<greatGrandChilds.length;l++){
                                             var greatGrandChild = greatGrandChilds[l];
-                                            console.log("greatGrandChild id",greatGrandChild.id);
                                             if(greatGrandChild.id==='dynamicView'){
                                                 if(val){
-                                                    greatGrandChild.style.width = "calc(84vw)";
+                                                    greatGrandChild.style.width = "calc(85vw)";
                                                     greatGrandChild.style.left = "calc(15vw)";
                                                 }else{
-                                                    greatGrandChild.style.width = "calc(98vw)";
+                                                    greatGrandChild.style.width = "calc(99vw)";
                                                     greatGrandChild.style.left = "calc(1vw)";
                                                 }   
                                             }
@@ -79,11 +89,7 @@ require(['angular'],function(){
                                     }
                                 }
                             }
-                            /*if(children[i].nodeType !== 8){
-                                angular.element(children[i]).css('background', 'grey');
-                            }*/
                         }
-                        console.log("Val ::",val);
                         if(val){
                             scope.isLeftNavTurnedOn = val;
                         }else{
@@ -95,12 +101,11 @@ require(['angular'],function(){
                     var myTemplate = ''+
                          '<div class="workspace"><div class="leftPane" id="leftNav" data-ng-include="\''+attrs.leftNavPageSrc+'\'"><input type="hidden" ng-model="leftNavController.isLeftNavTurnedOn" value="'+scope.isLeftNavTurnedOn+'"></div>'+
                          '<div class="main-panel"  id="main" role="main">'+
-                         '<div ui-view class="view-animate my-ease-in" > </div>'+
+                         '<div ui-view class="view-animate my-ease-in" style="width: 100%"> </div>'+
                          '</div></div>';
                     
                     
                     scope.deriveLeftPaneClass = function(leftNavState){
-                        console.log("leftNavState ::",leftNavState);
                         if(leftNavState){
                             return "leftPane";
                         }else{
@@ -115,17 +120,97 @@ require(['angular'],function(){
             };
         }])
     
-     /** Animated DIV **/
+        /** Canvas Ribbon **/
+        .directive('canvasRibbonItems', ['$compile','$injector','$document', function($compile, $injector,$document) {
+            return {
+                restrict: 'EAC',
+                scope: {
+                    callBackService: '='
+                },
+                template: 
+                          '<div class="canvasRibbon">' +
+                          '<i ng-click="addProcessStop()" class="fa fa-crosshairs fa-2x icons" data-toggle="tooltip" title="Start or Stop" data-placement="right" tooltip></i>' +
+                          '<i ng-click="addProcessBox()" class="fa fa-sitemap fa-2x icons" data-toggle="tooltip" title="Process" data-placement="right" tooltip></i>' +
+                          '<i ng-click="addProcessRulesSheet()" class="fa fa-cogs fa-2x icons" data-toggle="tooltip" title="Rules Sheet" data-placement="right" tooltip></i>' +
+                          '<i ng-click="addProcessRule()" class="fa fa-cog fa-2x icons" data-toggle="tooltip" title="Rules" data-placement="right" tooltip></i>' +
+                          '<i class="fa fa-pagelines fa-2x icons" data-toggle="tooltip" title="Show Rules Tree" data-placement="right" tooltip></i>' +
+                          '<i ng-click="addProcessConnector()" class="fa fa-arrow-right fa-lg icons" data-toggle="tooltip" title="Connector Line" data-placement="right" tooltip></i>' +
+                          '<i ng-click="addProcessConnector()" class="fa fa-ellipsis-h fa-lg icons" data-toggle="tooltip" title="Parallel Line" data-placement="right" tooltip></i>' +
+                          '<i ng-click="addProcessDecisionBox()" class="fa fa-yahoo fa-lg icons" data-toggle="tooltip" title="Decision box" data-placement="right" tooltip></i>'+
+                          '</div>',
+                          
+                link: function ( scope, element, attrs ) {
+                    
+                    scope.callBackService = attrs.callBackService;
+                    console.log("callBackService ::",scope.callBackService );
+                    var proxyService = $injector.get(scope.callBackService);
+                    console.log("proxyService ::",proxyService);
+                    
+                    scope.addProcessBox = function(){
+                        proxyService.addProcessBox();
+                    }
+                    
+                    scope.addProcessStop = function(){
+                        proxyService.addProcessStop();
+                    }
+                    
+                    scope.addProcessRulesSheet = function(){
+                        proxyService.addProcessRulesSheet();
+                    }
+                    
+                    scope.addProcessRule = function(){
+                        proxyService.addProcessRule();
+                    }
+                    
+                    scope.addProcessConnector = function(){
+                        proxyService.addProcessConnector();
+                    }
+                    
+                    scope.addProcessDecisionBox = function(){
+                        proxyService.addProcessDecisionBox();
+                    }
+                }
+            };
+        }])
+    
+        .directive( 'canvasTab', ['$compile', '$injector', function( $compile, $injector) {         
+            return {
+                restrict: 'EAC',
+                scope:{
+                    diyCanvasItems: '=',
+                    callBackService: '='
+                },
+                link:function ( scope, element, attrs) {
+                    
+                    var callBackService  = scope.callBackService;
+                    var proxyService = '';
+                    if(callBackService){
+                        proxyService = $injector.get(scope.callBackService);
+                    }
+                    var myTemplate = ''+
+                        '<ul class="nav nav-tabs diyTabs"><li data-ng-repeat="node in diyCanvasItems">' +
+                        '<a>{{node.label}}</a>' +
+                        '</li></ul>';
+                    
+                    element.html('').append( $compile(myTemplate)( scope ) );
+                }
+                
+                
+            };
+        }])
+        
+    
+        /** Animated DIV **/
        .directive('animatedFromRight', function(){
            return function(scope, element, attrs){
                element.css({
                     'position': 'absolute',
                     'left': 'calc(15vw)',
                     'height': 'calc(94vh)',
-                    'width': '100%',
+                    'width': 'calc(85vw)',
                     'transition': '1s ease',
                     'background-color': '#838685',
-                    'border-left' : 'solid 2px #447948'
+                    'border-left' : 'solid 1px #447948'
                });
                
             }
@@ -249,9 +334,7 @@ require(['angular'],function(){
                     }
                     
                     scope.deriveFolderStateClass = function(_nodeData){
-                        //console.log("_collapse notworking:",_nodeData);
                         return "fa fa-folder-open  folderColor";
-                        //return proxyService.deriveFolderState(_nodeData);
                     }
                     
                     scope.deriveNodeAnimClass = function(_nodeData){

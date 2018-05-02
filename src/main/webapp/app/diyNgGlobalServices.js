@@ -66,7 +66,6 @@ define([
             function getClientLogo (){
                 var clientLogoUrl = "./app/config/DEMO/images/demoLogo.jpg";
                 var clientAppSettings = CLIENT_SETTINGS;
-                console.log("clientAppSettings ::",clientAppSettings);
 
                 if(clientAppSettings.logo_base_path && clientAppSettings.client_id && clientAppSettings.logo_image){
                     clientLogoUrl = clientAppSettings.logo_base_path + clientAppSettings.client_id + clientAppSettings.logo_image;

@@ -1,3 +1,10 @@
 <div id="dynamicView" animated-from-right>
-    <div class="pageTtile">Home / </div>
+    <div class="pageTtile">
+        <i class="fa fa-plus-circle fa-lg diyAddNewTabIcon" data-toggle="tooltip" title="Add Process diagram" data-placement="bottom" tooltip></i>
+        <div canvas-tab="true" diy-canvas-items="homeCtrl.diyCanvasItems" call-back-service="HomeFactory"></div>
+    </div>
+    <canvas-ribbon-items call-back-service="HomeFactory"></canvas-ribbon-items>
+    <div class="cavasContainer">
+        <diy-process-diagram data="homeCtrl.visData" options="homeCtrl.visOptions" call-back-service="HomeFactory"></diy-process-diagram>
+    </div>
 </div>

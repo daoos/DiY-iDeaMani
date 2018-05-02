@@ -12,5 +12,5 @@
 <div class="pageTtile">Home / Organizations</div>
     Enter Share Type:<input type="text" ng-model="orgCtrl.shapeType">
     <button type="button" ng-click="orgCtrl.changeShape()">Go</button>
-    <diy-process-diagram data="data" options="options" height="100%"></diy-process-diagram>
+    <diy-process-diagram data="data" options="options" height="100%" call-back-service="HomeFactory"> </diy-process-diagram>
 </div>
