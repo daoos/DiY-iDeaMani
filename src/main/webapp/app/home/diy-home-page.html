@@ -5,6 +5,10 @@
     </div>
     <canvas-ribbon-items call-back-service="HomeFactory"></canvas-ribbon-items>
     <div class="cavasContainer">
-        <diy-process-diagram data="homeCtrl.visData" options="homeCtrl.visOptions" call-back-service="HomeFactory"></diy-process-diagram>
+        <!--<diy-process-diagram data="homeCtrl.visData" options="homeCtrl.visOptions" call-back-service="HomeFactory"></diy-process-diagram>-->
+        
+        <div id="network" class="network" style="height: 100%" idea-mani-process-diagram nodes-data="homeCtrl.nodesData" edges-data="homeCtrl.edgesData" graph-options="homeCtrl.graphOptions" call-back-service="HomeFactory"></div>
+        
+        
     </div>
 </div>
