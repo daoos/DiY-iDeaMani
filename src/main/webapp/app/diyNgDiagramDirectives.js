@@ -34,6 +34,16 @@ require(['angular'],function(){
                 var networkContainerHeight  = element[0].offsetWidth;
                 var contextPopupMenu        = undefined;
                 var ctxPopupOpen            = false;
+                var mouseHoldTime           = 0;
+                var mouseReleaseTime        = 0;
+                var WHEN_MULTIPLE_NODES_SELECTED    = 1;
+                var WHEN_SINGLE_NODE_SELECTED       = 2;
+                var WHEN_NO_NODES_SELECTED          = 3;
+                var WHEN_HOLD_ON_MULTIPLE_NODES     = 4;
+                var WHEN_HOLD_ON_SINGLE_NODE        = 4;
+                var nodeId                          = 2;
+                
+                
                 
                 /** injecting call back service **/
                 scope.callBackService    = attr.callBackService;
@@ -52,9 +62,7 @@ require(['angular'],function(){
                 
                 function positionDigram() {
                     var nodeXYCoordinates = processDiagram.getPositions();
-                    console.log("nodeXYCoordinates ::",nodeXYCoordinates);
-                    console.log("networkContainerWidth ::",networkContainerWidth);
-                    console.log("networkContainerHeight ::",networkContainerHeight);
+                    //position logic needs to be written
                     var newX = networkContainerWidth / 4;
                     var newY = networkContainerHeight / 4;
                     //for now manually position it
@@ -65,52 +73,97 @@ require(['angular'],function(){
                     console.log("params ::",params);
                     destroyContextMenu();
                 });
+                
+                processDiagram.on('hold', function(params){ 
+                    mouseHoldTime = params.event.timeStamp;
+                    destroyContextMenu();
+                });
+                
+                processDiagram.on('release', function(params){ 
+                    mouseReleaseTime = params.event.timeStamp;
+                    var xPos = params.pointer.DOM.x;
+                    var yPos = params.pointer.DOM.y;
+                    var totalHoldTime = mouseReleaseTime - mouseHoldTime;
+                    console.log("totalHoldTime ::",totalHoldTime);
+                    destroyContextMenu();
+                    if(totalHoldTime > 500 ) {
+                        var selectedNodes = getSelectedNodes();
+                        console.log("selectedNodes ::",selectedNodes);
+                        if(selectedNodes.length > 0){
+                            if(selectedNodes.length > 1){
+                                generateContextMenu(WHEN_HOLD_ON_MULTIPLE_NODES,xPos,yPos);
+                            }else{
+                                generateContextMenu(WHEN_HOLD_ON_SINGLE_NODE,xPos,yPos);
+                            }  
+                        }
+                    }
+                });
+               
+                scope.addProcessNode = function(){
+                    console.log("adding new process node from context menu...");
+                    nodesData.push({id:nodeId, label:"Process", group: "processnodes", widthConstraint: { minimum: 120 }, heightConstraint: { minimum: 35, valign: 'middle' }  });
+                    edgesData.push({from:nodeId-1, to: nodeId}); //auto connect
+                    
+                    diagramData.nodes   = nodesData;
+                    diagramData.edges   = edgesData;
+                    processDiagram.setData(diagramData);
+                    nodeId++;
+                    
+                    destroyContextMenu();
+                }
             
                 function destroyContextMenu(){
-                    if(ctxPopupOpen){
-                         var ctxPopupMenuElem = angular.element($document[0].querySelector('.popupContextMenu'));
-                         ctxPopupMenuElem.remove();
-                         ctxPopupOpen = false;
-                    }
-                }                      
+                     console.log("destroyContextMenu fired");
+                     var ctxPopupMenuElem = angular.element($document[0].querySelector('.popupContextMenu'));
+                     ctxPopupMenuElem.remove();
+                     ctxPopupOpen = false;
+                     console.log("destroyContextMenu removed");
+
+                }
+                
+                function getSelectedNodes(){
+                     var selectedNodes = processDiagram.getSelection().nodes;
+                     console.log(selectedNodes.length);
+                     return selectedNodes;
+                }
                 
                 element.bind('contextmenu',function(e){
-                    console.log("User Right is hijaked ....")
+                    console.log("User Right is hijaked ....e :",e)
                     var pageX = e.pageX;
                     var pageY = e.pageY;
                     var offsetX = e.offsetX;
                     var offsetY = e.offsetY;
-                    console.log("pageX ::",pageX);
-                    console.log("pageY ::",pageY);
-                    console.log("offsetX ::",offsetX);
-                    console.log("offsetY ::",offsetY);
-                    
                     var contextMenuLeft  = (pageX - offsetX);
                     var contextMenuTop  = (pageY - offsetY);
-                    console.log("contextMenuLeft ::",contextMenuLeft);
-                    console.log("contextMenuTop ::",contextMenuTop);
                     if(ctxPopupOpen){
                         destroyContextMenu();    
                     }
-                    var selectedNodes = processDiagram.getSelection().nodes;
+                    var selectedNodes = getSelectedNodes(); //processDiagram.getSelection().nodes;
                     //there are/is selected Nodes
-                    if(selectedNodes && selectedNodes.length >0){
-                        angular.forEach(selectedNodes, function(value, key) {
-                          console.log('Node key ' + key + ': '+ 'Node Value ' + + value);
-                            //later write the logic based on selected node type also based on multiple selection
-                        });
-                        var newElement = $compile('<div class="popupContextMenu" style="left:'+contextMenuLeft+'px; top:'+contextMenuTop+'px; "><div class="popupHeader">DiYRules-Context Menu</div><div class="ctxContent"><ul class="dashed-list"><li>+&nbsp;&nbsp;Add Stop Process</li><li>+&nbsp;&nbsp;Add Rules</li><li>+&nbsp;&nbsp;Add Rulesheet</li><li>+&nbsp;&nbsp;Add Process</li><li></li><li>-&nbsp;&nbsp;Delete Selected</li><li>+&nbsp;&nbsp;Add Connector</li></ul></div></div>')(scope);
-                          element.append(newElement);
-                          ctxPopupOpen = true;    
+                    var noOfSelectedNodes = selectedNodes.length;
+                    if(noOfSelectedNodes >0){
+                        if(noOfSelectedNodes >1){
+                            angular.forEach(selectedNodes, function(value, key) {
+                                console.log('Node key ' + key + ': '+ 'Node Value ' + + value);
+                                //later write the logic based on selected node type also based on multiple selection
+                            }); 
+                            generateContextMenu(WHEN_MULTIPLE_NODES_SELECTED,contextMenuLeft,contextMenuTop);    
+                        }else{
+                            generateContextMenu(WHEN_SINGLE_NODE_SELECTED,contextMenuLeft,contextMenuTop);    
+                        }
                     }else{
-                        var newElement = $compile('<div class="popupContextMenu" style="left:'+contextMenuLeft+'px; top:'+contextMenuTop+'px; "><div class="popupHeader">DiYRules-Context Menu</div><div class="ctxContent"><ul class="dashed-list"><li>+&nbsp;&nbsp;Add Stop Process</li><li>+&nbsp;&nbsp;Add Rules</li><li>+&nbsp;&nbsp;Add Rulesheet</li><li>+&nbsp;&nbsp;Add Process</li><li></li><li>-&nbsp;&nbsp;Clear Canvas</li><li>&nbsp;&nbsp;&nbsp;Refresh</li></ul></div></div>')(scope);
-                        element.append(newElement);
-                        ctxPopupOpen = true;
+                        generateContextMenu(WHEN_NO_NODES_SELECTED,contextMenuLeft,contextMenuTop);
                     }
                         
                     
                     e.preventDefault();
                 }); /** end of right click **/
+                
+                function generateContextMenu(context, xPos, yPos){
+                    var newElement = $compile('<div class="popupContextMenu" style="left:'+xPos+'px; top:'+yPos+'px; "><div class="popupHeader">DiYRules-Context Menu</div><div class="ctxContent"><ul class="dashed-list"><li>+&nbsp;&nbsp;Add Stop Process</li><li>+&nbsp;&nbsp;Add Rules</li><li>+&nbsp;&nbsp;Add Rulesheet</li><li>+&nbsp;&nbsp;<a ng-click="addProcessNode()">Add Process</a></li><li></li><li>-&nbsp;&nbsp;Delete Selected</li><li>+&nbsp;&nbsp;Add Connector</li></ul></div></div>')(scope);
+                    element.append(newElement);
+                    ctxPopupOpen = true;  
+                }
                 
             }    
         };

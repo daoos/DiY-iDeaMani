@@ -36,8 +36,12 @@ define([
                 zoomView: true  
             },
             nodes:{
-                borderWidth: 1,
+                borderWidth: 0.5,
                 shadow: true,
+                font: {
+                    size: 10,
+                    color: '#100e0e'
+                }
             },
             groups: {
                 'edgenodes': {
@@ -46,7 +50,7 @@ define([
                 },
                 'processnodes': {
                     shape: 'box',
-                    color: '#3f3fa8' 
+                    color: { background:'rgba(40, 40, 106, 0.74)', border:'#1d1d1d'}
                 },
                 'rulesnodes': {
                     shape: 'square',
