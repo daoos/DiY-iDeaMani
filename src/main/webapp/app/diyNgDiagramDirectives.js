@@ -29,6 +29,7 @@ require(['angular'],function(){
                 
                 var nodesData               = scope.nodesData;
                 var edgesData               = scope.edgesData;
+                var diagramDataUndo         = [];
                 var graphOptions            = scope.graphOptions;
                 var networkContainerWidth   = element[0].offsetHeight;
                 var networkContainerHeight  = element[0].offsetWidth;
@@ -42,6 +43,8 @@ require(['angular'],function(){
                 var WHEN_HOLD_ON_MULTIPLE_NODES     = 4;
                 var WHEN_HOLD_ON_SINGLE_NODE        = 4;
                 var nodeId                          = 2;
+                var endNodeAdded                    = false;
+                var clearedCanvas                   = false;
                 
                 
                 
@@ -98,19 +101,102 @@ require(['angular'],function(){
                         }
                     }
                 });
+                
+                scope.clearCanvas = function(){
+                    console.log("Clearing Canvas....");
+                    clearedCanvas = true;
+                    destroyContextMenu();
+                    diagramDataUndo = diagramData;
+                    nodesData = [];
+                    edgesData = [];
+                    nodesData.push({id: 1, "label": "Start", group: "edgenodes"});
+                    diagramData = {
+                        nodes: nodesData,
+                        edges: edgesData
+                    }
+                    processDiagram.setData(diagramData);
+                    nodeId = 2;
+                    endNodeAdded = false;
+                }
+                
+                scope.undoClearCanvas = function(){
+                    console.log("Undoing Clear Canvas....");
+                    clearedCanvas = false;
+                    destroyContextMenu();
+                    diagramData = diagramDataUndo;
+                    nodesData = diagramData.nodes;
+                    edgesData = diagramData.edges;
+                    processDiagram.setData(diagramData);
+                    //not known yet
+                    nodeId = getNodesCount();
+                    nodeId++;
+                    console.log("undoClearCanvas::nodeId ::",nodeId);
+                    endNodeAdded = isEndNodeAdded();
+                    console.log("endNodeAdded ::",endNodeAdded);
+                    
+                }
+                
+                scope.addDecisionNode = function(){
+                    console.log("adding new addDecisionNode from context menu...");
+                    if(!endNodeAdded){
+                        nodesData.push({id:nodeId, label:"Decision", group: "decisionnodes" });
+                        edgesData.push({from:nodeId-1, to: nodeId}); //auto connect
+                        diagramData.nodes   = nodesData;
+                        diagramData.edges   = edgesData;
+                        processDiagram.setData(diagramData);
+                        nodeId++;
+                        destroyContextMenu();
+                    }
+                    
+                }
+                
+                scope.addRuleSheetNode = function(){
+                    console.log("adding new addRuleSheetNode from context menu...");
+                    if(!endNodeAdded){
+                        nodesData.push({id:nodeId, label:"Rulesheet", group: "rulesheetnodes" });
+                        edgesData.push({from:nodeId-1, to: nodeId}); //auto connect
+                        diagramData.nodes   = nodesData;
+                        diagramData.edges   = edgesData;
+                        processDiagram.setData(diagramData);
+                        nodeId++;
+                        destroyContextMenu();
+                    }
+                    
+                }
                
                 scope.addProcessNode = function(){
                     console.log("adding new process node from context menu...");
-                    nodesData.push({id:nodeId, label:"Process", group: "processnodes", widthConstraint: { minimum: 120 }, heightConstraint: { minimum: 35, valign: 'middle' }  });
-                    edgesData.push({from:nodeId-1, to: nodeId}); //auto connect
-                    
-                    diagramData.nodes   = nodesData;
-                    diagramData.edges   = edgesData;
-                    processDiagram.setData(diagramData);
-                    nodeId++;
-                    
-                    destroyContextMenu();
+                    if(!endNodeAdded){
+                        nodesData.push({id:nodeId, label:"Process", group: "processnodes", widthConstraint: { minimum: 120 }, heightConstraint: { minimum: 35, valign: 'middle' }  });
+                        edgesData.push({from:nodeId-1, to: nodeId}); //auto connect
+
+                        diagramData.nodes   = nodesData;
+                        diagramData.edges   = edgesData;
+                        processDiagram.setData(diagramData);
+                        nodeId++;
+
+                        destroyContextMenu();
+                    }
                 }
+                
+                scope.addEndNode = function(){
+                    console.log("adding End Node from context menu...");
+                    
+                    if(!endNodeAdded){
+                        //push({id: 1, "label": "Start", group: "edgenodes"});
+                        nodesData.push({id:nodeId, label:"End", group: "endnodes"});
+                        edgesData.push({from:nodeId-1, to: nodeId}); //auto connect
+
+                        diagramData.nodes   = nodesData;
+                        diagramData.edges   = edgesData;
+                        processDiagram.setData(diagramData);
+                        nodeId++;
+                        endNodeAdded = true;
+                        destroyContextMenu();    
+                    }
+                    
+                }
+                
             
                 function destroyContextMenu(){
                      console.log("destroyContextMenu fired");
@@ -125,6 +211,27 @@ require(['angular'],function(){
                      var selectedNodes = processDiagram.getSelection().nodes;
                      console.log(selectedNodes.length);
                      return selectedNodes;
+                }
+                
+                /** nodes length**/
+                function getNodesCount(){
+                    return diagramData.nodes.length;
+                }
+                
+                /** is end node added?**/
+                function isEndNodeAdded(){
+                    var isEndNodeFound = false;
+                    angular.forEach(diagramData.nodes, function(value, key) {
+                        console.log('Node key ' + key);
+                        console.log('Node key ' + value.group);
+                        if(value.group === 'endnodes'){
+                            isEndNodeFound = true;
+                        }
+                        //later write the logic based on selected node type also based on multiple selection
+                    }); 
+                    
+                    
+                    return isEndNodeFound;
                 }
                 
                 element.bind('contextmenu',function(e){
@@ -160,7 +267,17 @@ require(['angular'],function(){
                 }); /** end of right click **/
                 
                 function generateContextMenu(context, xPos, yPos){
-                    var newElement = $compile('<div class="popupContextMenu" style="left:'+xPos+'px; top:'+yPos+'px; "><div class="popupHeader">DiYRules-Context Menu</div><div class="ctxContent"><ul class="dashed-list"><li>+&nbsp;&nbsp;Add Stop Process</li><li>+&nbsp;&nbsp;Add Rules</li><li>+&nbsp;&nbsp;Add Rulesheet</li><li>+&nbsp;&nbsp;<a ng-click="addProcessNode()">Add Process</a></li><li></li><li>-&nbsp;&nbsp;Delete Selected</li><li>+&nbsp;&nbsp;Add Connector</li></ul></div></div>')(scope);
+                    
+                    
+                    var undoOption = '';
+                    if(clearedCanvas){
+                       undoOption = '<li>-&nbsp;&nbsp;<a ng-click="undoClearCanvas()">Undo Clear</a></li>';
+                    }else{
+                        undoOption = '<li>-&nbsp;&nbsp;<a ng-click="clearCanvas()">Clear Canvas</a></li>';    
+                    }
+                    //
+                    var newElement = $compile('<div class="popupContextMenu" style="left:'+xPos+'px; top:'+yPos+'px; "><div class="popupHeader">DiYRules-Context Menu</div><div class="ctxContent"><ul class="dashed-list"><li>+&nbsp;&nbsp;<a ng-click="addProcessNode()">Add Process</a></li><li>+&nbsp;&nbsp;<a ng-click="addRuleSheetNode()">Add Rulesheet</a></li><li>+&nbsp;&nbsp;<a ng-click="addDecisionNode()">Add Decision Node</a></li><li>+&nbsp;&nbsp;Add Connector</li><li>+&nbsp;&nbsp;<a ng-click="addEndNode()">Add End Node</a></li>'+undoOption+                          
+                    '<li>-&nbsp;&nbsp;Delete Selected</li></ul></div></div>')(scope);
                     element.append(newElement);
                     ctxPopupOpen = true;  
                 }

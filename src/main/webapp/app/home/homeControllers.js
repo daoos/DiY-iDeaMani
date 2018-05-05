@@ -39,7 +39,7 @@ define([
                 borderWidth: 0.5,
                 shadow: true,
                 font: {
-                    size: 10,
+                    size: 12,
                     color: '#100e0e'
                 }
             },
@@ -47,6 +47,10 @@ define([
                 'edgenodes': {
                     shape: 'dot',
                     color: '#5daf73' 
+                },
+                'endnodes': {
+                    shape: 'dot',
+                    color: 'rgba(128, 28, 28, 0.85)' 
                 },
                 'processnodes': {
                     shape: 'box',
@@ -94,7 +98,7 @@ define([
                   opacity:1.0
                 }
               },
-              physics: {stabilization: false}  
+              physics: false
         }
         
         
@@ -123,7 +127,7 @@ define([
             edges: mySelf.visEdges
         };
         
-        mySelf.visOptions = {
+      /*  mySelf.visOptions = {
             clickToUse: false,
             interaction: {
                 dragNodes:true,
@@ -188,9 +192,9 @@ define([
                   opacity:1.0
                 }
               },
-              physics: true  
+              physics: false  
         }
-        
+        */
         
         mySelf.addStopProcess = function(){
             console.log("Adding stop process");
