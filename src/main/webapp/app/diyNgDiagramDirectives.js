@@ -35,6 +35,7 @@ require(['angular'],function(){
                 var networkContainerHeight  = element[0].offsetWidth;
                 var contextPopupMenu        = undefined;
                 var ctxPopupOpen            = false;
+                var attributesWindowOpen    = false;
                 var mouseHoldTime           = 0;
                 var mouseReleaseTime        = 0;
                 var WHEN_MULTIPLE_NODES_SELECTED    = 1;
@@ -80,6 +81,10 @@ require(['angular'],function(){
                 processDiagram.on('hold', function(params){ 
                     mouseHoldTime = params.event.timeStamp;
                     destroyContextMenu();
+                });
+                
+                processDiagram.on('doubleClick', function(params){
+                    generateAttributesWindow(); 
                 });
                 
                 processDiagram.on('release', function(params){ 
@@ -267,8 +272,6 @@ require(['angular'],function(){
                 }); /** end of right click **/
                 
                 function generateContextMenu(context, xPos, yPos){
-                    
-                    
                     var undoOption = '';
                     if(clearedCanvas){
                        undoOption = '<li>-&nbsp;&nbsp;<a ng-click="undoClearCanvas()">Undo Clear</a></li>';
@@ -280,6 +283,14 @@ require(['angular'],function(){
                     '<li>-&nbsp;&nbsp;Delete Selected</li></ul></div></div>')(scope);
                     element.append(newElement);
                     ctxPopupOpen = true;  
+                }
+
+                function generateAttributesWindow(){
+                    console.log("generateAttributesWindow...");
+                    var newElement = $compile('<div class="canvasAttributesWindow"><div class="canvasAttributesWindowHeader"></div></div>')(scope);
+                    element.append(newElement);
+                    attributesWindowOpen = true;  
+                    
                 }
                 
             }    
